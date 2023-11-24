@@ -4,7 +4,7 @@ document.getElementById('tema')
 
 function redirecionar() {
     const valorDoInput = document.getElementById('tema').value;
-    const urlDestino = '../html/gerador.html?tema=' + encodeURIComponent(valorDoInput);
+    const urlDestino = './../html/gerador.html?tema=' + encodeURIComponent(valorDoInput);
     window.location.href = urlDestino;
 }
 
