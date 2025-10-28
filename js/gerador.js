@@ -54,18 +54,28 @@ function toggleSelecionado(imagemClicada) {
 async function carregarFotos() {
     tagImg.innerHTML = '';
     const imagens = await pegarImagem();
+    console.log(imagens);
+    
+    if (!imagens || imagens.length === 0) {
+        console.warn('Nenhuma imagem encontrada para o tema:', tema);
+        return;
+    }
+
     imagens.forEach(criarTags);
 
     imagemSelecionada = 0;
-    toggleSelecionado(imagens[0]);
+    const primeiraImgElemento = document.querySelector('#imagens img');
+    if (primeiraImgElemento) {
+        toggleSelecionado(primeiraImgElemento);
+    }
 }
-botaoEsconder.addEventListener('click', function () {
+botaoEsconder.addEventListener('click', function (event) {
     elementosParaEsconder.forEach(function (elemento) {
         elemento.style.display = 'none';
     });
 
     document.addEventListener('click', mostrarElementos);
-
+    // stop propagation so the document click listener doesn't immediately run
     event.stopPropagation();
 });
 
@@ -79,9 +89,11 @@ function mostrarElementos() {
 
 gerar.addEventListener('click', function () {
 
-    imagemSelecionada = (imagemSelecionada + 1) % 200;
-
     const imagens = document.querySelectorAll('#imagens img');
+    if (!imagens || imagens.length === 0) return;
+
+    // advance index and wrap using the actual number of loaded images
+    imagemSelecionada = (imagemSelecionada + 1) % imagens.length;
     toggleSelecionado(imagens[imagemSelecionada]);
 
 });
