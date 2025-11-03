@@ -62,12 +62,9 @@ body {
 }
 
 .linha {
-  position: absolute;
-  width: 100vw;
+  place-self: center;
+  width:98%;
   height: 42px;
-  left: 0px;
-  top: 68px;
-  z-index: -1;
 }
 
 .sobre {
